@@ -188,7 +188,7 @@ public class MainScreen extends VerticalLayout implements ViewDisplay {
 		
 		if(sesion.getContext().getAuthentication() != null) {
 			User u = userSer.loadUserByUsername(sesion.getContext().getAuthentication().getName());
-			Notification.show("Bienvenido" + u.getFirstName(), Type.WARNING_MESSAGE);
+			Notification.show("Bienvenido " + u.getFirstName(), Type.WARNING_MESSAGE);
 		}
 			
 		else 
