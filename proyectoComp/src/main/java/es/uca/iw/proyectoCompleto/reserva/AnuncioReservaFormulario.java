@@ -46,7 +46,7 @@ public class AnuncioReservaFormulario extends VerticalLayout implements View{
 	private final UserService usSer;
 	private Reserva res = new Reserva();
 	private final ReservaService resService;
-	private final VehiculoService aptService;
+	private final VehiculoService vehService;
 	private User u = new User("", "");
 	ViewChangeListener.ViewChangeEvent event;
 	Vehiculo v;
@@ -76,10 +76,10 @@ public class AnuncioReservaFormulario extends VerticalLayout implements View{
 	CssLayout acciones = new CssLayout(save, cancel);
 	
 	@Autowired
-	public AnuncioReservaFormulario(ReservaService resService, UserService us, VehiculoService aptService) {
+	public AnuncioReservaFormulario(ReservaService resService, UserService us, VehiculoService vehService) {
 		this.resService = resService;
 		this.usSer = us;
-		this.aptService = aptService;
+		this.vehService = vehService;
 	}
 	
 	@PostConstruct
@@ -166,8 +166,8 @@ public class AnuncioReservaFormulario extends VerticalLayout implements View{
 		if(event.getParameters() != null) {
 			String[] msgs = event.getParameters().split("/");
 			Long id = Long.parseLong(msgs[0]);
-			v = aptService.findOne(id);
-			String foto = aptService.findOne(id).getGaleria();
+			v = vehService.findOne(id);
+			String foto = vehService.findOne(id).getGaleria();
 			
             if(foto != null) {
     			imagen.setVisible(true);

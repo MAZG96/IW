@@ -43,7 +43,6 @@ public class ProyectoCompletoApplication {
 				service.save(new User("Jack", "Bauer"));
 				service.save(new User("Chloe", "O'Brian"));
 				service.save(new User("Kim", "Bauer"));
-				service.save(new User("David", "Palmer"));
 				service.save(new User("Michelle", "Dessler"));
 				ucaService.save(new Cuentageneral("ES7620770024003102575766"));
 
@@ -101,15 +100,6 @@ public class ProyectoCompletoApplication {
 		protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
 			auth.authenticationProvider(authenticationProvider());
-
-			// auth
-			// .inMemoryAuthentication()
-			// .withUser("admin").password("p").roles("ADMIN", "MANAGER",
-			// "USER")
-			// .and()
-			// .withUser("manager").password("p").roles("MANAGER", "USER")
-			// .and()
-			// .withUser("user").password("p").roles("USER");
 			
 		}
 
@@ -119,7 +109,6 @@ public class ProyectoCompletoApplication {
 		}
 
 		static {
-			// Use a custom SecurityContextHolderStrategy
 			SecurityContextHolder.setStrategyName(VaadinSessionSecurityContextHolderStrategy.class.getName());
 		}
 	}

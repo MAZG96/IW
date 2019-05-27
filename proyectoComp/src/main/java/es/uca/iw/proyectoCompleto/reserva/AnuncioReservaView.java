@@ -55,7 +55,7 @@ public class AnuncioReservaView extends VerticalLayout implements View{
 	private final FacturaService tranService;
 	private final ReservaService resService;
 	private final ReservaRepository resRepo;
-	private final VehiculoService aptService;
+	private final VehiculoService vehService;
 	final Grid<Reserva> grid;
 	private User u = new User("", "");
 	ViewChangeListener.ViewChangeEvent event;
@@ -84,10 +84,10 @@ public class AnuncioReservaView extends VerticalLayout implements View{
 	CssLayout acciones = new CssLayout(save, cancel);
 	
 	@Autowired
-	public AnuncioReservaView(ReservaService resService, UserService us, VehiculoService aptService,FacturaService tranService,CuentaGeneralService cuenta,ReservaRepository r) {
+	public AnuncioReservaView(ReservaService resService, UserService us, VehiculoService vehService,FacturaService tranService,CuentaGeneralService cuenta,ReservaRepository r) {
 		this.resService = resService;
 		this.usSer = us;
-		this.aptService = aptService;
+		this.vehService = vehService;
 		this.tranService=tranService;
 		this.cuentaService=cuenta;
 		this.grid = new Grid<>(Reserva.class);
@@ -192,7 +192,7 @@ public class AnuncioReservaView extends VerticalLayout implements View{
 			return true;			
         }, "Fecha Inicial esta ocupada"))
 		.withValidator(Validator.from(reserva -> {
-			String estado = aptService.findOne(res.getVehiculo().getId()).getEstado();
+			String estado = vehService.findOne(res.getVehiculo().getId()).getEstado();
 			if(v.getEstado().compareTo("disponible")==0) return true;
 			else return false;
         }, "Coche no disponible"));
@@ -208,7 +208,7 @@ public class AnuncioReservaView extends VerticalLayout implements View{
                 	Cuentageneral cuenta = cuentaService.findByCuentaBancaria("ES7620770024003102575766");
                 	int dias = fechaFin.getValue().compareTo(fechaIni.getValue());
                 	resService.save(res);
-                	res.setPrecio((float)aptService.findOne(res.getVehiculo().getId()).getPrecio_dia()*dias);  //precio = preciodia*dias
+                	res.setPrecio((float)vehService.findOne(res.getVehiculo().getId()).getPrecio_dia()*dias);  //precio = preciodia*dias
                 	res.setNumero(res.getId() * 13);
                 	if(res.isSeguro()) { //Si activa el seguro 20% del precio pagado
                 		float precio_seguro=res.getPrecio();
@@ -257,8 +257,8 @@ public class AnuncioReservaView extends VerticalLayout implements View{
 		if(event.getParameters() != null) {
 			String[] msgs = event.getParameters().split("/");
 			Long id = Long.parseLong(msgs[0]);
-			v = aptService.findOne(id);
-			String foto = aptService.findOne(id).getGaleria();
+			v = vehService.findOne(id);
+			String foto = vehService.findOne(id).getGaleria();
 			
             if(foto != null) {
     			imagen.setVisible(true);
