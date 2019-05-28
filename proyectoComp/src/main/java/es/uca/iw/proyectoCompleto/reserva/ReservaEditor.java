@@ -167,7 +167,7 @@ public class ReservaEditor extends VerticalLayout{
                 	f.setTarjetaOrigen(cuenta.getCuentaBancaria());
                 	f.setCuentaDestino(res.getUsuario().getCuentaBancaria()); //1111111 la cuenta destino de la empresa Alquicoche
                 	
-                	f.setCantidad(res.getPrecio()*0.2f); //cantidad = preciodia*dias
+                	f.setCantidad(res.getPrecio()*0.5f); //cantidad = preciodia*dias
                 	f.setReserva(res);
 					tranSer.save(f);
 				}

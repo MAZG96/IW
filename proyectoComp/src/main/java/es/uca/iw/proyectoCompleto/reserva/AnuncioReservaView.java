@@ -2,6 +2,7 @@ package es.uca.iw.proyectoCompleto.reserva;
 
 import java.io.File;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -206,13 +207,18 @@ public class AnuncioReservaView extends VerticalLayout implements View{
         save.addClickListener(
                 event -> {
                 	Cuentageneral cuenta = cuentaService.findByCuentaBancaria("ES7620770024003102575766");
-                	int dias = fechaFin.getValue().compareTo(fechaIni.getValue());
+                	long dias = ChronoUnit.DAYS.between(fechaIni.getValue(),fechaFin.getValue());
+                	System.out.println("dias "+dias);
                 	resService.save(res);
                 	res.setPrecio((float)aptService.findOne(res.getVehiculo().getId()).getPrecio_dia()*dias);  //precio = preciodia*dias
                 	res.setNumero(res.getId() * 13);
                 	if(res.isSeguro()) { //Si activa el seguro 20% del precio pagado
                 		float precio_seguro=res.getPrecio();
                 		precio_seguro=(float)(precio_seguro+(precio_seguro*0.2));
+                		res.setPrecio(precio_seguro);
+                	}else { //fianza de la reserva 50%
+                		float precio_seguro=res.getPrecio();
+                		precio_seguro=(float)(precio_seguro+(precio_seguro*0.5));
                 		res.setPrecio(precio_seguro);
                 	}
                 	resService.save(res);

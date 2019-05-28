@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.vaadin.data.Binder;
 import com.vaadin.data.Validator;
 import com.vaadin.data.validator.EmailValidator;
+import com.vaadin.data.validator.StringLengthValidator;
 import com.vaadin.event.ShortcutAction;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
@@ -62,6 +63,7 @@ public class RegisterScreen extends FormLayout implements View{
 	TextField tlf = new TextField("Tlf");
 	TextArea bio = new TextArea("Biografía");
 	DateField date = new DateField("Fecha de nacimiento");
+	TextField tarjeta = new TextField("Tarjeta");
 	
 	Binder<User> binder = new Binder<>(User.class);
 	
@@ -84,7 +86,7 @@ public class RegisterScreen extends FormLayout implements View{
         binder.setStatusLabel(validationStatus);
 		
     	addComponents(firstName, lastName, username, password, confirmPassword, email, addr, tlf,
-    			bio, date, actions);
+    			bio, date,tarjeta, actions);
     	binder.bindInstanceFields(this);
     	
     	binder.forField(firstName)
@@ -107,6 +109,10 @@ public class RegisterScreen extends FormLayout implements View{
 		.asRequired("Este campo no puede estar vacío")
 		.bind("tlf");
 		
+		binder.forField(tarjeta)
+		.asRequired("Este campo no puede estar vacío")
+		.withValidator(new StringLengthValidator("Este campo debe ser una cadena entre 16 y 32 caracteres", 16, 34))
+		.bind(User::getTarjeta, User::setTarjeta);
 		
 		binder.forField(email)
 		.asRequired("Este campo no puede estar vacío")
