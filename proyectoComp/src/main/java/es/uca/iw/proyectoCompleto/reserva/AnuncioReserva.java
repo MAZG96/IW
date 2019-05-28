@@ -30,7 +30,7 @@ import es.uca.iw.proyectoCompleto.vehiculos.VehiculoService;
 public class AnuncioReserva extends VerticalLayout implements View{
 	private static final long serialVersionUID = 350041936879535659L;
 	public static final String VIEW_NAME = "AnuncioReserva";
-	private final VehiculoService vehService;
+	private final VehiculoService aptService;
 	ViewChangeListener.ViewChangeEvent event;
 	Vehiculo v;
 	Image imagen = new Image();
@@ -43,8 +43,8 @@ public class AnuncioReserva extends VerticalLayout implements View{
 	Label propietario = new Label();
 	
 	@Autowired
-	public AnuncioReserva(VehiculoService vehService) {
-		this.vehService = vehService;
+	public AnuncioReserva(VehiculoService aptService) {
+		this.aptService = aptService;
 	}
 	
 	@PostConstruct
@@ -78,8 +78,8 @@ public class AnuncioReserva extends VerticalLayout implements View{
 		if(event.getParameters() != null) {
 			String[] msgs = event.getParameters().split("/");
 			Long id = Long.parseLong(msgs[0]);
-			v = vehService.findOne(id);
-			String foto = vehService.findOne(id).getGaleria();
+			v = aptService.findOne(id);
+			String foto = aptService.findOne(id).getGaleria();
 			
             if(foto != null) {
     			imagen.setVisible(true);

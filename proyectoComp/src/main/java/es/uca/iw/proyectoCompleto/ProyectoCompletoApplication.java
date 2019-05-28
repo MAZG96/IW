@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -25,7 +26,8 @@ import es.uca.iw.proyectoCompleto.security.VaadinSessionSecurityContextHolderStr
 import es.uca.iw.proyectoCompleto.users.User;
 import es.uca.iw.proyectoCompleto.users.UserService;
 
-@SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
+@SpringBootApplication
+@EnableAutoConfiguration(exclude = { SecurityAutoConfiguration.class })
 public class ProyectoCompletoApplication {
 
 	private static final Logger log = LoggerFactory.getLogger(ProyectoCompletoApplication.class);
@@ -43,6 +45,7 @@ public class ProyectoCompletoApplication {
 				service.save(new User("Jack", "Bauer"));
 				service.save(new User("Chloe", "O'Brian"));
 				service.save(new User("Kim", "Bauer"));
+				service.save(new User("David", "Palmer"));
 				service.save(new User("Michelle", "Dessler"));
 				ucaService.save(new Cuentageneral("ES7620770024003102575766"));
 
@@ -100,6 +103,15 @@ public class ProyectoCompletoApplication {
 		protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
 			auth.authenticationProvider(authenticationProvider());
+
+			// auth
+			// .inMemoryAuthentication()
+			// .withUser("admin").password("p").roles("ADMIN", "MANAGER",
+			// "USER")
+			// .and()
+			// .withUser("manager").password("p").roles("MANAGER", "USER")
+			// .and()
+			// .withUser("user").password("p").roles("USER");
 			
 		}
 
@@ -109,6 +121,7 @@ public class ProyectoCompletoApplication {
 		}
 
 		static {
+			// Use a custom SecurityContextHolderStrategy
 			SecurityContextHolder.setStrategyName(VaadinSessionSecurityContextHolderStrategy.class.getName());
 		}
 	}

@@ -38,7 +38,16 @@ public class UserService implements UserDetailsService {
 	
 	public User save(User user) {
 		
+		/*
+		 //password en el campo editar puede estar codificada o cambiada por el usuario a mano
+		String passInField = user.getPassword();
 		
+		//password real del usuario de la sesion en texto plano
+		VaadinSessionSecurityContextHolderStrategy sesion = new VaadinSessionSecurityContextHolderStrategy();
+		String passReal = sesion.getContext().getAuthentication().getCredentials().toString();
+		passwordEncoder.encode(passReal);
+				
+		if(!passwordEncoder.matches(passInField, passReal))*/
 				
 		user.setPassword(passwordEncoder.encode(user.getPassword() != null ? user.getPassword() : "default"));
 		
@@ -49,7 +58,7 @@ public class UserService implements UserDetailsService {
 		return repo.save(user);
 	}
 	
-
+	//@Query("Select u from User u where u.email = :email") @Param("email")
 	public User findByEmail(String email) {
 		return repo.findByEmail(email);
 	}

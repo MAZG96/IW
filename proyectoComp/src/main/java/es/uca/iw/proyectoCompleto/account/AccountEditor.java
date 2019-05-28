@@ -45,12 +45,15 @@ import es.uca.iw.proyectoCompleto.users.UserEditor.ChangeHandler;
 @SuppressWarnings("serial")
 public class AccountEditor extends VerticalLayout{
 	private final UserService service;
-
+	/**
+	 * The currently edited user
+	 */
 	private User user;
 
 	private Binder<User> binder = new Binder<>(User.class);
 
-
+	
+	/* Fields to edit properties in User entity */
 	TextField firstName = new TextField("Nombre");
 	TextField lastName = new TextField("Apellidos");
 	TextField username = new TextField("Usuario");
@@ -196,7 +199,9 @@ public class AccountEditor extends VerticalLayout{
 		}
 		cancel.setVisible(persisted);
 
-
+		// Bind user properties to similarly named fields
+		// Could also use annotation or "manual binding" or programmatically
+		// moving values from fields to entities before saving
 		binder.setBean(user);
 		
 		setVisible(true);

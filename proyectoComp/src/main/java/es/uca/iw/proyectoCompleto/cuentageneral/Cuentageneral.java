@@ -14,6 +14,9 @@ public class Cuentageneral {
 
 	private String cuentaBancaria;
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		return cuentaBancaria;

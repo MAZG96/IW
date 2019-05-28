@@ -36,9 +36,17 @@ public class VaadinUI extends UI {
 	protected void init(VaadinRequest request) {
 
 	   	this.getUI().getNavigator().setErrorView(ErrorView.class);
-		viewProvider.setAccessDeniedViewClass(AccessDeniedView.class);		
+		viewProvider.setAccessDeniedViewClass(AccessDeniedView.class);
+		
 		
 		showMainScreen();
+		
+		/*if (SecurityUtils.isLoggedIn()) {
+			
+		} else {
+			showLoginScreen();
+		}*/
+
 	}
 
 	

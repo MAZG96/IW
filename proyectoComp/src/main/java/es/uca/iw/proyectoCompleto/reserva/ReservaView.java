@@ -110,7 +110,7 @@ public class ReservaView extends VerticalLayout implements View {
 
 	void listarReservas(User u) {
 		if (u!=null) {
-			if(u.getIs_Gestor() || u.isAdmin()) { //Si es gestor ve todas las reservas
+			if(u.getIs_Gestor()) { //Si es gestor ve todas las reservas
 				grid.setItems((Collection<Reserva>) caracteristicas.findAll());
 			}else{ //si es un usuario normal ve solo las suyas
 				grid.setItems((Collection<Reserva>) caracteristicas.findByUser(u));
