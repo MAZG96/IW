@@ -69,6 +69,8 @@ public class AnuncioReservaView extends VerticalLayout implements View{
 	Label gps = new Label();
 	Label numero_de_plazas = new Label();
 	Label precio_dia = new Label();
+	Label condiciones_seguro = new Label("El seguro cuesta el 20% del alquiler");
+	Label condiciones_fianza = new Label("La fianza es del 50% del coste");
 
 	
 	Button save = new Button("Confirmar", FontAwesome.REGISTERED);
@@ -78,6 +80,7 @@ public class AnuncioReservaView extends VerticalLayout implements View{
 	DateField fechaFin = new DateField("Fecha de salida");
 	TextField tarjeta = new TextField("Tarjeta de crédito");
 	CheckBox seguro = new CheckBox("Seguro");
+	
 	
 	Binder<Reserva> binder = new Binder<>(Reserva.class);
 	Binder<User> binder2 = new Binder<>(User.class);
@@ -110,7 +113,7 @@ public class AnuncioReservaView extends VerticalLayout implements View{
         binder.setStatusLabel(validationStatus);		
         
 		infov.addComponents(imagen, matricula, marca, estado, climatizador, gps, numero_de_plazas,precio_dia);
-		camposFormulario.addComponents(validationStatus, fechaIni, fechaFin, tarjeta,seguro, acciones);
+		camposFormulario.addComponents(validationStatus, fechaIni, fechaFin, tarjeta,seguro, acciones,condiciones_seguro,condiciones_fianza);
 		reservascoche.addComponent(re);
 		
 		
