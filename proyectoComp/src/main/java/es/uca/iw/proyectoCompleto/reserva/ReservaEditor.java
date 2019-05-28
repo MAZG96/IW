@@ -66,6 +66,8 @@ public class ReservaEditor extends VerticalLayout{
 	/* Fields to edit properties in vehiculo entity */
 	TextField problema = new TextField("Incidencias");
 	Label title = new Label("Estado de la reserva");
+	Label cancelacion1 = new Label("Cancelar con menos de 15 dias ");
+	Label cancelacion2 = new Label("de antelacion supone la devolución del 70%");
 	Button eliminar = new Button("Cancelar reserva");
 	//Boton para salir del editor
 	Button x = new Button("Atrás");
@@ -86,7 +88,7 @@ public class ReservaEditor extends VerticalLayout{
 		if(uSer.loadUserByUsername(sesion.getContext().getAuthentication().getName()).getIs_Gestor()){
 		addComponents(title, stat, showCar,problema,finalizar);
 		}else {
-			addComponents(title, stat, acciones, showCar);
+			addComponents(title, stat, acciones, showCar,cancelacion1,cancelacion2);
 		}
 		
 		showCar.setStyleName(ValoTheme.BUTTON_TINY);
@@ -119,8 +121,8 @@ public class ReservaEditor extends VerticalLayout{
 			if(LocalDate.now().isAfter(this.fechaFIN)) //COMPRUEBA QUE NO SEA ANTIGUA LA RESERVA
 				Notification.show("Esta reserva no se puede cancelar. ¡Es antigua!", Type.ERROR_MESSAGE);
 			else if(LocalDate.now().isAfter(this.fechaINICIO.minusDays(15))) { 
-						//80% del totaal
-						precioYo = (res.getPrecio()*0.8);
+						//70%
+						precioYo = (res.getPrecio()*0.7);
 						
 						
 						//reserva cancelada
@@ -138,7 +140,7 @@ public class ReservaEditor extends VerticalLayout{
 						//integro
 						//reserva cancelada
 						res.setisCancelada(true);
-						precioYo = res.getPrecio()*0.2;
+						precioYo = res.getPrecio();
 
 						
 						binder.setBean(cuenta);
