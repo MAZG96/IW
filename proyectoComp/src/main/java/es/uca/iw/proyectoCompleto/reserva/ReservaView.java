@@ -62,13 +62,14 @@ public class ReservaView extends VerticalLayout implements View {
 		addComponent(acciones);	
 		
 		grid.setWidth("100%");
-		grid.setColumns("numero", "fechaini", "fechafin", "precio", "vehiculo","isCancelada");
+		grid.setColumns("numero", "fechaini", "fechafin", "precio", "vehiculo","isCancelada","problema");
 		grid.getColumn("numero").setCaption("Nº Reserva");
 		grid.getColumn("fechaini").setCaption("Dia inicio");
 		grid.getColumn("fechafin").setCaption("Dia final");
 		grid.getColumn("precio").setCaption("Precio");
 		grid.getColumn("vehiculo").setCaption("Vehiculo");
-		grid.getColumn("isCancelada").setCaption("¿Cancelada?");
+		grid.getColumn("isCancelada").setCaption("¿Finalizada?");
+		grid.getColumn("problema").setCaption("Incidencias");
 		
 		editor.setWidth("100%");
 		

@@ -69,13 +69,11 @@ public class FacturaView extends VerticalLayout implements View{
 		// Initialize listing
 		addComponents(dinero_total,devolucionf,devolucionc);
 		
-		filtro.setPlaceholder("Búsqueda por vehiculo");
-		filtro.setWidth("250px");
+		
 		HorizontalLayout acciones = new HorizontalLayout();	
 		Responsive.makeResponsive(acciones);
 		acciones.setSpacing(false);
 		acciones.setMargin(false);
-		acciones.addComponent(filtro);
 		addComponent(acciones);	
 		
 		grid.setWidth("100%");
