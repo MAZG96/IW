@@ -263,6 +263,7 @@ public class AnuncioReservaView extends VerticalLayout implements View{
 		if(event.getParameters() != null) {
 			String[] msgs = event.getParameters().split("/");
 			Long id = Long.parseLong(msgs[0]);
+			
 			v = aptService.findOne(id);
 			String foto = aptService.findOne(id).getGaleria();
 			
