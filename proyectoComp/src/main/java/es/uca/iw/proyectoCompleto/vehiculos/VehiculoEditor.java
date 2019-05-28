@@ -116,17 +116,7 @@ private final UserService userservice;
 		upload.addSucceededListener(receiver);	
 		galeria.setVisible(false);
 		
-		
-		/*MultiFileMemoryBuffer buffer = new MultiFileMemoryBuffer();
-		Upload upload = new Upload(buffer);
-		upload.setAcceptedFileTypes("image/jpeg", "image/png", "image/gif");
 
-		upload.addSucceededListener(event -> {
-		    Component component = createComponent(event.getMIMEType(),
-		            event.getFileName(),
-		            buffer.getInputStream(event.getFileName()));
-		    showOutput(event.getFileName(), component, output);
-		});*/
 
 		Label validationStatus = new Label();
         binder.setStatusLabel(validationStatus);
@@ -155,7 +145,7 @@ private final UserService userservice;
 		
 		binder.forField(matricula)
 		.asRequired("No puede estar vacío")
-		.withValidator(valor -> service.findByMatricula(matricula.getValue()).size()<=1,"matricula ya existe")
+		.withValidator(valor -> service.findByMatricula(matricula.getValue()).size()==0,"matricula ya existe")
 		.bind(Vehiculo::getMatricula, Vehiculo::setMatricula);
 		
 		binder.forField(marca)

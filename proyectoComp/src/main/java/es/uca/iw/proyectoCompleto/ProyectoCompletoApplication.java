@@ -104,14 +104,6 @@ public class ProyectoCompletoApplication {
 
 			auth.authenticationProvider(authenticationProvider());
 
-			// auth
-			// .inMemoryAuthentication()
-			// .withUser("admin").password("p").roles("ADMIN", "MANAGER",
-			// "USER")
-			// .and()
-			// .withUser("manager").password("p").roles("MANAGER", "USER")
-			// .and()
-			// .withUser("user").password("p").roles("USER");
 			
 		}
 

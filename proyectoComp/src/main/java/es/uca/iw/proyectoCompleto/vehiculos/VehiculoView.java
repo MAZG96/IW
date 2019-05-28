@@ -104,11 +104,10 @@ public class VehiculoView extends VerticalLayout implements View {
 
 		// Instantiate and edit new Cliente the new button is clicked
 		agregarNuevoBoton.addClickListener(e -> {
-			if(service.loadUserByUsername(sesion.getContext().getAuthentication().getName()).
-					getCuentaBancaria() != null)
+			if(service.loadUserByUsername(sesion.getContext().getAuthentication().getName()).getIs_Gestor())
 				editor.editarVehiculo(new Vehiculo());
 			else
-				Notification.show("Debes ser propietario para crear un nuevo vehiculo", Type.ERROR_MESSAGE);
+				Notification.show("Debes ser Gestor para registrar un nuevo vehiculo", Type.ERROR_MESSAGE);
 		});
 
 		// Listen changes made by the editor, refresh data from backend
