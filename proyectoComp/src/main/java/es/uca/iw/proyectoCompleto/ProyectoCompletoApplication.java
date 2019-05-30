@@ -40,7 +40,7 @@ public class ProyectoCompletoApplication {
 	public CommandLineRunner loadData(UserService service, CuentaGeneralService ucaService) {
 		return (args) -> {
 			
-			/*if (service.findAll().size() == 0 && ucaService.findByCuentaBancaria("ES7620770024003102575766") == null) {
+			if (service.findAll().size() == 0 && ucaService.findByCuentaBancaria("ES7620770024003102575766") == null) {
 				// save a couple of users with default password: default
 				service.save(new User("Jack", "Bauer"));
 				service.save(new User("Chloe", "O'Brian"));
@@ -76,7 +76,7 @@ public class ProyectoCompletoApplication {
 					log.info(bauer.toString());
 				}
 				log.info("");
-			}*/
+			}
 		};
 	}
 
