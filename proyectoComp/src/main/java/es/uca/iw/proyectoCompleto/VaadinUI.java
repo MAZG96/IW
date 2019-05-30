@@ -4,14 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 
 import com.vaadin.server.VaadinRequest;
-import com.vaadin.server.VaadinService;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.spring.navigator.SpringViewProvider;
 import com.vaadin.ui.UI;
 
 import es.uca.iw.proyectoCompleto.security.AccessDeniedView;
 import es.uca.iw.proyectoCompleto.security.ErrorView;
-import es.uca.iw.proyectoCompleto.security.LoginScreen;
 import es.uca.iw.proyectoCompleto.security.SecurityUtils;
 
 @SpringUI
