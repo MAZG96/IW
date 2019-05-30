@@ -39,8 +39,8 @@ public class ProyectoCompletoApplication {
 	@Bean
 	public CommandLineRunner loadData(UserService service, CuentaGeneralService ucaService) {
 		return (args) -> {
-
-			if (service.findAll().size() == 0 && ucaService.findByCuentaBancaria("ES7620770024003102575766") == null) {
+			
+			/*if (service.findAll().size() == 0 && ucaService.findByCuentaBancaria("ES7620770024003102575766") == null) {
 				// save a couple of users with default password: default
 				service.save(new User("Jack", "Bauer"));
 				service.save(new User("Chloe", "O'Brian"));
@@ -48,6 +48,7 @@ public class ProyectoCompletoApplication {
 				service.save(new User("David", "Palmer"));
 				service.save(new User("Michelle", "Dessler"));
 				ucaService.save(new Cuentageneral("ES7620770024003102575766"));
+				
 
 				User root = new User("root", "root");
 				root.setPassword("root");
@@ -75,7 +76,7 @@ public class ProyectoCompletoApplication {
 					log.info(bauer.toString());
 				}
 				log.info("");
-			}
+			}*/
 		};
 	}
 
