@@ -29,6 +29,7 @@ import es.uca.iw.proyectoCompleto.users.User;
 import es.uca.iw.proyectoCompleto.users.UserService;
 
 
+
 @SuppressWarnings("serial")
 @SpringView(name = VehiculoView.VIEW_NAME)
 public class VehiculoView extends VerticalLayout implements View {

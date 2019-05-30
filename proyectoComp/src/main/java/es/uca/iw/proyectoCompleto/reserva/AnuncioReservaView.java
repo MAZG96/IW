@@ -71,7 +71,10 @@ public class AnuncioReservaView extends VerticalLayout implements View{
 	Label precio_dia = new Label();
 	Label condiciones_seguro = new Label("El seguro cuesta el 20% del alquiler");
 	Label condiciones_fianza = new Label("La fianza es del 50% del coste");
-
+	Label dis_ini = new Label();
+	Label dis_fin = new Label();
+	
+	
 	
 	Button save = new Button("Confirmar", FontAwesome.REGISTERED);
 	Button cancel = new Button("Cancelar",FontAwesome.LOCK);
@@ -112,7 +115,7 @@ public class AnuncioReservaView extends VerticalLayout implements View{
 		Label validationStatus = new Label();
         binder.setStatusLabel(validationStatus);		
         
-		infov.addComponents(imagen, matricula, marca, estado, climatizador, gps, numero_de_plazas,precio_dia);
+		infov.addComponents(imagen, matricula, marca, estado, climatizador, gps, numero_de_plazas,precio_dia,dis_ini,dis_fin);
 		camposFormulario.addComponents(validationStatus, fechaIni, fechaFin, tarjeta,seguro, acciones,condiciones_seguro,condiciones_fianza);
 		reservascoche.addComponent(re);
 		
@@ -182,7 +185,7 @@ public class AnuncioReservaView extends VerticalLayout implements View{
 			LocalDate hoy = LocalDate.now();
 			int days = fechaIni.getValue().compareTo(hoy);
 			if(days < 0) return false;
-			else return true;
+ return true;
         }, "La fecha inicial incorrecta"))
 		.withValidator(Validator.from(reserva -> {
 			List<Reserva> reservas = resRepo.findByVehiculo(res.getVehiculo());
@@ -195,6 +198,18 @@ public class AnuncioReservaView extends VerticalLayout implements View{
 			}
 			return true;			
         }, "Fecha Inicial esta ocupada"))
+		.withValidator(Validator.from(reserva -> {
+			List<Reserva> reservas = resRepo.findByVehiculo(res.getVehiculo());
+			
+				if(fechaIni.getValue().isAfter(v.getDisponibilidad_ini()) && fechaIni.getValue().isBefore(v.getDisponibilidad_fin()) &&
+						fechaFin.getValue().isAfter(v.getDisponibilidad_ini()) && fechaFin.getValue().isBefore(v.getDisponibilidad_fin())) {
+					return true;
+				}else {
+					return false;
+					
+				}
+			
+        }, "Fuera de la disponibilidad del vehiculo"))
 		.withValidator(Validator.from(reserva -> {
 			String estado = aptService.findOne(res.getVehiculo().getId()).getEstado();
 			if(v.getEstado().compareTo("disponible")==0) return true;
@@ -211,7 +226,6 @@ public class AnuncioReservaView extends VerticalLayout implements View{
                 event -> {
                 	Cuentageneral cuenta = cuentaService.findByCuentaBancaria("ES7620770024003102575766");
                 	long dias = ChronoUnit.DAYS.between(fechaIni.getValue(),fechaFin.getValue());
-                	System.out.println("dias "+dias);
                 	resService.save(res);
                 	res.setPrecio((float)aptService.findOne(res.getVehiculo().getId()).getPrecio_dia()*dias);  //precio = preciodia*dias
                 	res.setNumero(res.getId() * 13);
@@ -285,6 +299,9 @@ public class AnuncioReservaView extends VerticalLayout implements View{
         	numero_de_plazas.setValue("Número de plazas: " + v.getNumero_de_plazas());
         	gps.setValue("GPS: " + v.getGps());
         	precio_dia.setValue("Precio/día: " + v.getPrecio_dia() + "€");
+        	dis_ini.setValue("Disponible desde: "+v.getDisponibilidad_ini());
+        	dis_fin.setValue("Disponible hasta: "+v.getDisponibilidad_fin());
+        	
         
         	
         	//////////

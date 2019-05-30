@@ -1,5 +1,7 @@
 package es.uca.iw.proyectoCompleto.security;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 import javax.annotation.PostConstruct;
@@ -64,6 +66,7 @@ public class RegisterScreen extends FormLayout implements View{
 	TextArea bio = new TextArea("Biografía");
 	DateField date = new DateField("Fecha de nacimiento");
 	TextField tarjeta = new TextField("Tarjeta");
+	TextField cuentabancaria = new TextField("Cuenta Bancaria");
 	
 	Binder<User> binder = new Binder<>(User.class);
 	
@@ -86,7 +89,7 @@ public class RegisterScreen extends FormLayout implements View{
         binder.setStatusLabel(validationStatus);
 		
     	addComponents(firstName, lastName, username, password, confirmPassword, email, addr, tlf,
-    			bio, date,tarjeta, actions);
+    			bio, date,tarjeta,cuentabancaria, actions);
     	binder.bindInstanceFields(this);
     	
     	binder.forField(firstName)
@@ -114,12 +117,23 @@ public class RegisterScreen extends FormLayout implements View{
 		.withValidator(new StringLengthValidator("Este campo debe ser una cadena entre 16 y 32 caracteres", 16, 34))
 		.bind(User::getTarjeta, User::setTarjeta);
 		
+		binder.forField(cuentabancaria)
+		.asRequired("Este campo no puede estar vacío")
+		.withValidator(new StringLengthValidator("numero de cuenta tiene 20 caracteres", 20, 20))
+		.bind(User::getCuentaBancaria, User::setCuentaBancaria);
+		
 		binder.forField(email)
 		.asRequired("Este campo no puede estar vacío")
 		.withValidator(new EmailValidator("Introduce un correo válido"))
 		.bind(User::getEmail, User::setEmail);
 
 		binder.forField(date)
+		.withValidator(edad->{
+			LocalDate hoy = LocalDate.now();
+        	long dias = ChronoUnit.DAYS.between(hoy,date.getValue());
+        	if(dias<6570) {
+        		return true;
+        	}else{return false;}},"debe ser mayor de 18 años")
 		.bind(User::getBirth, User::setBirth);
 		
         binder.withValidator(Validator.from(user -> {

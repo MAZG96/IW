@@ -58,7 +58,6 @@ public class ReservaEditor extends VerticalLayout{
 	private final FacturaService tranSer;
 	private final CuentaGeneralService CuentaService;
 	private User proper;
-	private String properAccount;
 	private LocalDate fechaINICIO;
 	private LocalDate fechaFIN;
 	private Binder<Cuentageneral> binder = new Binder<>(Cuentageneral.class);
@@ -75,6 +74,7 @@ public class ReservaEditor extends VerticalLayout{
 	Label stat = new Label();
 	Button showCar = new Button("Ver vehiculo");
 	HorizontalLayout acciones = new HorizontalLayout(eliminar, x);
+	private String properAccount;
 	
 	@Autowired
 	public ReservaEditor(ReservaService resService, UserService us, FacturaService tranSer, 
@@ -185,6 +185,7 @@ public class ReservaEditor extends VerticalLayout{
 		
 	
 	}
+	
 	
 	public final void editarReserva(Reserva c) {
 		if (c == null) {

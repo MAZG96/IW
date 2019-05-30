@@ -2,6 +2,7 @@ package es.uca.iw.proyectoCompleto.vehiculos;
 
 import java.io.Serializable;
 import java.text.DecimalFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -55,7 +56,7 @@ public class Vehiculo implements Serializable {
     private Long id;
     
     @Basic(optional = false)
-    @Column(name = "matricula")
+	@Column(unique = true, length = 255,name = "matricula")
     private String matricula;
     
     @Basic(optional = false)
@@ -96,6 +97,14 @@ public class Vehiculo implements Serializable {
     @Column(name = "oficina")
     private String oficina;
     
+    @Basic(optional = false)
+    @Column(name = "disponibilidad_ini")
+    private LocalDate disponibilidad_ini;
+	
+    @Basic(optional = false)
+    @Column(name = "disponibilidad_fin")
+    private LocalDate disponibilidad_fin;
+    
 
 	@ManyToOne
     private User usuario;
@@ -110,7 +119,7 @@ public class Vehiculo implements Serializable {
     }
 
     public Vehiculo(Long id, String matricula, String marca, String estado, int climatizador, int gps,
-    		int numero_de_plazas,String tipo_transmision,int precio_dia,String oficina,String carroceria,String galeria) {
+    		int numero_de_plazas,String tipo_transmision,int precio_dia,String oficina,String carroceria,String galeria,LocalDate fechaini, LocalDate fechafin) {
         
     	this.id = id;
         this.precio_dia=precio_dia;
@@ -124,8 +133,28 @@ public class Vehiculo implements Serializable {
         this.oficina=oficina;
         this.carroceria=carroceria;
         this.galeria=galeria;
+        this.disponibilidad_ini=fechaini;
+        this.disponibilidad_fin=fechafin;      
     }
 
+
+	public LocalDate getDisponibilidad_ini() {
+		return disponibilidad_ini;
+	}
+
+	public void setDisponibilidad_ini(LocalDate disponibilidad_ini) {
+		this.disponibilidad_ini = disponibilidad_ini;
+	}
+
+	public LocalDate getDisponibilidad_fin() {
+		return disponibilidad_fin;
+	}
+	
+	
+
+	public void setDisponibilidad_fin(LocalDate disponibilidad_fin) {
+		this.disponibilidad_fin = disponibilidad_fin;
+	}
 
 	public Long getId() {
 		return id;

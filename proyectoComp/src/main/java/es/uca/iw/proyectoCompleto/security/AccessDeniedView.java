@@ -17,8 +17,7 @@ public class AccessDeniedView extends VerticalLayout implements View {
 
     public AccessDeniedView() {
     	VaadinSessionSecurityContextHolderStrategy sesion = new VaadinSessionSecurityContextHolderStrategy();
-    	
-        setMargin(true);
+           setMargin(true);
         Label lbl = new Label("No tiene acceso a esta página");
         lbl.addStyleName(ValoTheme.LABEL_FAILURE);
         lbl.setSizeUndefined();

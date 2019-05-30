@@ -15,6 +15,7 @@ import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.CssLayout;
+import com.vaadin.ui.DateField;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextField;
@@ -22,6 +23,7 @@ import com.vaadin.ui.Upload;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
+import es.uca.iw.proyectoCompleto.reserva.Reserva;
 import es.uca.iw.proyectoCompleto.security.VaadinSessionSecurityContextHolderStrategy;
 import es.uca.iw.proyectoCompleto.users.User;
 import es.uca.iw.proyectoCompleto.users.UserService;
@@ -68,6 +70,8 @@ private final UserService userservice;
 	TextField precio_dia = new TextField("precio_dia");
 	TextField oficina = new TextField("oficina");
 	TextField galeria = new TextField("galeria");
+	DateField fechaIni = new DateField("Fecha de inicio");
+	DateField fechaFin = new DateField("Fecha de salida");
 	
 
 	/* Action buttons */
@@ -134,7 +138,7 @@ private final UserService userservice;
 		
 		//valoracion.setMaxLength(8);
 		
-		addComponents(title, matricula, marca, estado, climatizador, gps, numero_de_plazas,tipo_transmision,carroceria,precio_dia,oficina,upload, imagen, acciones);
+		addComponents(title, matricula, marca, estado, climatizador, gps, numero_de_plazas,tipo_transmision,carroceria,precio_dia,fechaIni,fechaFin,oficina,upload, imagen, acciones);
 
 		// bind using naming convention
 		//binder.bindInstanceFields(this);
@@ -195,18 +199,25 @@ private final UserService userservice;
 		.asRequired("No puede estar vacío")
 		.withValidator(new StringLengthValidator("Este campo debe ser una cadena entre 4 y 128 caracteres", 4, 128))
 		.bind(Vehiculo::getTipo_transmision, Vehiculo::setTipo_transmision);
-		
+		binder.forField(fechaIni)
+		.asRequired("Este campo no puede estar vacío")
+		.bind(Vehiculo::getDisponibilidad_ini, Vehiculo::setDisponibilidad_ini);
+	
+		binder.forField(fechaFin)
+		.asRequired("Este campo no puede estar vacío")
+		.withValidator(Validator.from(reserva -> {
+			int days = fechaFin.getValue().compareTo(fechaIni.getValue());
+			if(days == 0) return false;
+			else return true;
+        }, "La disponibilidad debe ser al menos de 1 día"))
+		.bind(Vehiculo::getDisponibilidad_fin, Vehiculo::setDisponibilidad_fin);
+	
 		binder.forField(carroceria)
 		.asRequired("No puede estar vacío")
 		.withValidator(new StringLengthValidator("Este campo debe ser una cadena entre 4 y 128 caracteres", 4, 128))
 		.bind(Vehiculo::getCarroceria, Vehiculo::setCarroceria);
 		
-		/*binder.forField(valoracion)
-		  .withNullRepresentation("")
-		  .asRequired("No puede estar vacío")
-		  .withConverter(
-		    new StringToFloatConverter("Por favor introduce un número entero"))
-		  .bind("valoracion");*/
+		
 		
 		
 		
@@ -227,6 +238,7 @@ private final UserService userservice;
 			
 			if(binder.isValid()) {
 				
+				
 				binder.setBean(apt);
 				apt.setMatricula(matricula.getValue());
 				apt.setMarca(marca.getValue());
@@ -235,6 +247,8 @@ private final UserService userservice;
 				apt.setGps(Integer.valueOf(gps.getValue()));
 				apt.setNumero_de_plazas(Integer.valueOf(numero_de_plazas.getValue()));
 				apt.setTipo_transmision(tipo_transmision.getValue());
+				apt.setDisponibilidad_ini(fechaIni.getValue());
+				apt.setDisponibilidad_fin(fechaFin.getValue());
 				apt.setCarroceria(carroceria.getValue());
 				apt.setPrecio_dia(Integer.valueOf(precio_dia.getValue()));
 				apt.setOficina(oficina.getValue());
@@ -242,6 +256,7 @@ private final UserService userservice;
 				apt.setGaleria(galeria.getValue());
 				apt.setUsuario(u);
 				caracteristicas.save(apt);
+				
 				getUI().getPage().reload();
 				
 			}else
