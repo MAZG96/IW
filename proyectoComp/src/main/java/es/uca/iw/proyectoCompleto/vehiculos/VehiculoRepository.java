@@ -23,8 +23,9 @@ public interface VehiculoRepository extends CrudRepository<Vehiculo, Long> {
 	
 	@Query("Select a from Vehiculo a where a.usuario = :usuario")
 	List<Vehiculo> findByUserVehiculo(@Param("usuario")User usuario);
-		
-	List<Vehiculo> findByMarca(String marca);
+	
+	@Query("Select a from Vehiculo a where a.marca like %:marca%")
+	public List<Vehiculo> findByMarca(@Param("marca")String marca);
 	
 	@Query("Select a from Vehiculo a where a.usuario = :usuario")
 	public List<Vehiculo> findByUser(@Param("usuario")User usuario);

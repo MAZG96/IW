@@ -49,7 +49,7 @@ public class AnuncioBusqueda extends VerticalLayout implements View{
 		grid.getColumn("gps").setCaption("¿GPS?");
 		
 
-		filter.setPlaceholder("Filtrar por nombre");
+		filter.setPlaceholder("Filtrar por Marca");
 		
 		filter.setValueChangeMode(ValueChangeMode.LAZY);
 		filter.addValueChangeListener(e -> listVehiculos(e.getValue()));
@@ -66,7 +66,7 @@ public class AnuncioBusqueda extends VerticalLayout implements View{
 		if(StringUtils.isEmpty(filtro)) {
 			grid.setItems(service.findAll());
 		} else {
-			grid.setItems(service.findByMatricula(filtro));
+			grid.setItems(service.findByMarca(filtro));
 		}
 	}
 }

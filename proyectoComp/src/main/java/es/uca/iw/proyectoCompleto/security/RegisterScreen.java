@@ -131,7 +131,9 @@ public class RegisterScreen extends FormLayout implements View{
             }
         }, "La contraseña y su confirmación deben coincidir"));
         
-        
+        cancel.addClickListener(
+                event ->{ getUI().getNavigator().navigateTo("");});
+
                 
         binder.setBean(new User("", ""));
         

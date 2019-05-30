@@ -42,12 +42,11 @@ public class ReservaEditor extends VerticalLayout{
 	private final ReservaService resService;
 	private final FacturaService tranSer;
 	private final CuentaGeneralService CuentaService;
-	private User proper;
+	private User gestor;
 	private LocalDate fechaINICIO;
 	private LocalDate fechaFIN;
 	private Binder<Cuentageneral> binder = new Binder<>(Cuentageneral.class);
 	
-	/* Fields to edit properties in vehiculo entity */
 	TextField problema = new TextField("Incidencias");
 	Label title = new Label("Estado de la reserva");
 	Label cancelacion1 = new Label("Cancelar con menos de 15 dias ");
@@ -59,8 +58,6 @@ public class ReservaEditor extends VerticalLayout{
 	Label stat = new Label();
 	Button showCar = new Button("Ver vehiculo");
 	HorizontalLayout acciones = new HorizontalLayout(eliminar, x);
-	private String properAccount;
-	
 	@Autowired
 	public ReservaEditor(ReservaService resService, UserService us, FacturaService tranSer, 
 			CuentaGeneralService CuentaService,UserRepository user){
@@ -70,7 +67,8 @@ public class ReservaEditor extends VerticalLayout{
 		this.CuentaService = CuentaService;	
 		this.usre=user;
 		VaadinSessionSecurityContextHolderStrategy sesion = new VaadinSessionSecurityContextHolderStrategy();
-		if(uSer.loadUserByUsername(sesion.getContext().getAuthentication().getName()).getIs_Gestor()){
+		if(uSer.loadUserByUsername(sesion.getContext().getAuthentication().getName()).getIs_Gestor() || 
+				uSer.loadUserByUsername(sesion.getContext().getAuthentication().getName()).getIs_Gerente()	){
 		addComponents(title, stat, showCar,problema,finalizar);
 		}else {
 			addComponents(title, stat, acciones, showCar,cancelacion1,cancelacion2);
@@ -94,12 +92,9 @@ public class ReservaEditor extends VerticalLayout{
 		// wire action buttons to cancelar reserva y salir
 		eliminar.addClickListener(e -> {
 			//Politica de cancelacion
-			User u = uSer.loadUserByUsername(sesion.getContext().getAuthentication().getName());
-			
-			
-			
+			//70% menos de 15 dias de antelacion y 100% mas de 15 dias de antelación
 			Factura factura;
-			double precioYo;
+			double precio;
 			
 			Cuentageneral cuenta = CuentaService.findByCuentaBancaria("ES7620770024003102575766");
 			
@@ -107,7 +102,7 @@ public class ReservaEditor extends VerticalLayout{
 				Notification.show("Esta reserva no se puede cancelar. ¡Es antigua!", Type.ERROR_MESSAGE);
 			else if(LocalDate.now().isAfter(this.fechaINICIO.minusDays(15))) { 
 						//70%
-						precioYo = (res.getPrecio()*0.7);
+						precio = (res.getPrecio()*0.7);
 						
 						
 						//reserva cancelada
@@ -117,7 +112,7 @@ public class ReservaEditor extends VerticalLayout{
 						binder.setBean(cuenta);
 						CuentaService.save(cuenta);
 						
-						factura = new Factura(cuenta.getCuentaBancaria(),res.getUsuario().getCuentaBancaria(), precioYo,"cancelacion");
+						factura = new Factura(cuenta.getCuentaBancaria(),res.getUsuario().getCuentaBancaria(), precio,"cancelacion");
 						factura.setReserva(res);
 						tranSer.save(factura);
 						
@@ -125,13 +120,13 @@ public class ReservaEditor extends VerticalLayout{
 						//integro
 						//reserva cancelada
 						res.setisCancelada(true);
-						precioYo = res.getPrecio();
-
+						precio = res.getPrecio();
+						resService.save(res);
 						
 						binder.setBean(cuenta);
 						CuentaService.save(cuenta);
 						
-						factura = new Factura(cuenta.getCuentaBancaria(),res.getUsuario().getCuentaBancaria(),precioYo,"cancelacion");
+						factura = new Factura(cuenta.getCuentaBancaria(),res.getUsuario().getCuentaBancaria(),precio,"cancelacion");
 						factura.setReserva(res);
 						tranSer.save(factura);	
 					}
@@ -187,21 +182,14 @@ public class ReservaEditor extends VerticalLayout{
 				
 		x.setVisible(persisted);
 				
-		//binder.setBean(res);
-		this.proper = c.getVehiculo().getUsuario();
-		this.properAccount = proper.getCuentaBancaria();
+		this.gestor = c.getVehiculo().getUsuario();
+		gestor.getCuentaBancaria();
 		this.fechaINICIO = c.getFechaini();
 		this.fechaFIN = c.getFechafin();
 		this.id = c.getVehiculoId();
-		
-
-		
 		setVisible(true);
-
-		// A hack to ensure the whole form is visible
 		eliminar.focus();
-		// Select all text in nombre field automatically
-		//nombre.selectAll();
+		
 	}	
 	
 }

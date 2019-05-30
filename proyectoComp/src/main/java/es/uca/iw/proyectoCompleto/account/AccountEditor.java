@@ -40,15 +40,11 @@ import es.uca.iw.proyectoCompleto.users.UserService;
 @SuppressWarnings("serial")
 public class AccountEditor extends VerticalLayout{
 	private final UserService service;
-	/**
-	 * The currently edited user
-	 */
+
 	private User user;
 
 	private Binder<User> binder = new Binder<>(User.class);
 
-	
-	/* Fields to edit properties in User entity */
 	TextField firstName = new TextField("Nombre");
 	TextField lastName = new TextField("Apellidos");
 	TextField username = new TextField("Usuario");
@@ -186,31 +182,21 @@ public class AccountEditor extends VerticalLayout{
 		}
 		final boolean persisted = c.getId() != null;
 		if (persisted) {
-			// Find fresh entity for editing
 			user = service.findOne(c.getId());
 		}
 		else {
 			user = c;
 		}
 		cancel.setVisible(persisted);
-
-		// Bind user properties to similarly named fields
-		// Could also use annotation or "manual binding" or programmatically
-		// moving values from fields to entities before saving
 		binder.setBean(user);
 		
 		setVisible(true);
-		
-		
-		// A hack to ensure the whole form is visible
 		save.focus();
-		// Select all text in firstName field automatically
+
 		firstName.selectAll();
 	}
 
 	public void setChangeHandler(ChangeHandler h) {
-		// ChangeHandler is notified when either save or delete
-		// is clicked
 		save.addClickListener(e -> h.onChange());
 	}
 }

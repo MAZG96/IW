@@ -7,16 +7,13 @@ import javax.persistence.Id;
 @Entity
 public class Cuentageneral {
 	private static final long serialVersionUID = -8883789651072229337L;
-
+	//CUENTA DE LA EMPRESA PARA RECIBIR LAS TRANSFERENCIAS
 	@Id
 	@GeneratedValue
 	private Long id;
 
 	private String cuentaBancaria;
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
 		return cuentaBancaria;

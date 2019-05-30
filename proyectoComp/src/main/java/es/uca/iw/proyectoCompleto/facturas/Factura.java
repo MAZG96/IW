@@ -14,7 +14,6 @@ import es.uca.iw.proyectoCompleto.reserva.Reserva;
 @Transactional
 @Entity
 public class Factura {
-	private static final long serialVersionUID = -8883789651072229337L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)	
 	private Long id;

@@ -90,27 +90,25 @@ public class ReservaView extends VerticalLayout implements View {
 		
 		// Connect selected User to editor or hide if none is selected
 		grid.asSingleSelect().addValueChangeListener(e -> {
-			if(!e.getValue().isCancelada()) {
+			if(e != null){
+			if(!e.getValue().isCancelada() == true) {
 				editor.editarReserva(e.getValue());
 			}else {
 				Notification.show("Reserva ya finalizada");
 			}
+			}
 		});
 
 		User u = new User(null, null);
-		//VaadinSessionSecurityContextHolderStrategy sesion = new VaadinSessionSecurityContextHolderStrategy();
 		if(sesion.getContext().getAuthentication() != null)
-			u = service.loadUserByUsername(sesion.getContext().getAuthentication().getName());
-		
-		
-		// Initialize listing
+			u = service.loadUserByUsername(sesion.getContext().getAuthentication().getName());				
 		listarReservas(u);
 	}
 
 
 	void listarReservas(User u) {
 		if (u!=null) {
-			if(u.getIs_Gestor()) { //Si es gestor ve todas las reservas
+			if(u.getIs_Gestor() || u.getIs_Gerente()) { //Si es gestor ve todas las reservas
 				grid.setItems((Collection<Reserva>) caracteristicas.findAll());
 			}else{ //si es un usuario normal ve solo las suyas
 				grid.setItems((Collection<Reserva>) caracteristicas.findByUser(u));

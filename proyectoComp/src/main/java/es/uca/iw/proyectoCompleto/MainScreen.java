@@ -34,9 +34,7 @@ import es.uca.iw.proyectoCompleto.security.RegisterScreen;
 import es.uca.iw.proyectoCompleto.security.SecurityUtils;
 import es.uca.iw.proyectoCompleto.security.VaadinSessionSecurityContextHolderStrategy;
 import es.uca.iw.proyectoCompleto.users.User;
-import es.uca.iw.proyectoCompleto.users.UserManagementView;
 import es.uca.iw.proyectoCompleto.users.UserService;
-import es.uca.iw.proyectoCompleto.users.UserView;
 import es.uca.iw.proyectoCompleto.vehiculos.VehiculoView;
 
 @SuppressWarnings("deprecation")
@@ -122,7 +120,6 @@ public class MainScreen extends VerticalLayout implements ViewDisplay {
 		nav.addComponent(lupa);
 		root.addComponent(nav);
 		Label u;
-		//System.out.println(sesion.getContext().getAuthentication().getName());
 		if(!SecurityUtils.isLoggedIn()) { //USUARIO INVITADO
 			register.addClickListener(e -> getUI().getNavigator().navigateTo(RegisterScreen.VIEW_NAME));
 			login.addClickListener(e -> getUI().getNavigator().navigateTo(LoginScreen.VIEW_NAME));
@@ -133,22 +130,18 @@ public class MainScreen extends VerticalLayout implements ViewDisplay {
 			navigationBar.addComponent(createNavigationButton("Coches", VehiculoView.VIEW_NAME));//MODIFICAR COCHES GENERAL
 			navigationBar.addComponent(createNavigationButton("Reservas", ReservaView.VIEW_NAME)); //MODIFICAR RESERVAS GENERAL
 			navigationBar.addComponent(createNavigationButton("Editar perfil", AccountView.VIEW_NAME));
+			navigationBar.addComponent(logoutButton);
 			u = new Label("Usuario: "+userSer.loadUserByUsername(sesion.getContext().getAuthentication().getName()));
 			u.setStyleName("h2");
 			header.addComponent(u);
 			header.setComponentAlignment(u, Alignment.MIDDLE_RIGHT);
 		}else if(userSer.loadUserByUsername(sesion.getContext().getAuthentication().getName()).getIs_Gerente()){ //GERENTE
+			navigationBar.addComponent(createNavigationButton("Coches", VehiculoView.VIEW_NAME));
 			navigationBar.addComponent(createNavigationButton("Reservas", ReservaView.VIEW_NAME)); //MODIFICAR RESERVAS GENERAL
 			navigationBar.addComponent(createNavigationButton("Editar perfil", AccountView.VIEW_NAME));
 			navigationBar.addComponent(createNavigationButton("Facturación", FacturaView.VIEW_NAME));
-			u = new Label("Usuario: "+userSer.loadUserByUsername(sesion.getContext().getAuthentication().getName()));
-			u.setStyleName("h2");
-			header.addComponent(u);
-			header.setComponentAlignment(u, Alignment.MIDDLE_RIGHT);
-		}else if(userSer.loadUserByUsername(sesion.getContext().getAuthentication().getName()).isAdmin()){ //ADMIN
-			navigationBar.addComponent(createNavigationButton("Mis reservas", ReservaView.VIEW_NAME)); //MODIFICAR RESERVAS GENERAL
-			navigationBar.addComponent(createNavigationButton("Mis coches ", VehiculoView.VIEW_NAME));//MODIFICAR COCHES GENERAL
-			navigationBar.addComponent(createNavigationButton("Editar perfil", AccountView.VIEW_NAME));			
+			navigationBar.addComponent(logoutButton);
+
 			u = new Label("Usuario: "+userSer.loadUserByUsername(sesion.getContext().getAuthentication().getName()));
 			u.setStyleName("h2");
 			header.addComponent(u);
@@ -157,12 +150,11 @@ public class MainScreen extends VerticalLayout implements ViewDisplay {
 			navigationBar.addComponent(createNavigationButton("Mis reservas", ReservaView.VIEW_NAME));
 			navigationBar.addComponent(createNavigationButton("Editar perfil", AccountView.VIEW_NAME));
 			u = new Label("Usuario: "+userSer.loadUserByUsername(sesion.getContext().getAuthentication().getName()));
+			navigationBar.addComponent(logoutButton);
 			u.setStyleName("h2");
 			header.addComponent(u);
 			header.setComponentAlignment(u, Alignment.MIDDLE_RIGHT);
 		}
-		
-		// Creamos el panel
 		springViewDisplay = new Panel();
 		springViewDisplay.setSizeFull();
 		root.addComponent(springViewDisplay);
@@ -171,17 +163,12 @@ public class MainScreen extends VerticalLayout implements ViewDisplay {
 		addComponent(root);
 	}
 	
-	public void setAuth(int rol)
+	public void setAuth()
 	{
-		switch(rol) {
-			case 0: addBarraRoot();
-					break;
-			default:break;
-		}
-		holaUser(); 
+		Bienvenido(); 
 	}
 	
-	private void holaUser() 
+	private void Bienvenido() 
 	{
 		VaadinSessionSecurityContextHolderStrategy sesion = new VaadinSessionSecurityContextHolderStrategy();
 		
@@ -195,11 +182,6 @@ public class MainScreen extends VerticalLayout implements ViewDisplay {
 			Notification.show("Bienvenido", Type.WARNING_MESSAGE);
 	}
 	
-	private void addBarraRoot() 
-	{
-		navigationBar.addComponent(createNavigationButton("Usuarios", UserView.VIEW_NAME));
-		navigationBar.addComponent(createNavigationButton("Gestionar usuarios", UserManagementView.VIEW_NAME));
-	}
 
 	private Button createNavigationButton(String caption, final String viewName) {
 		Button button = new Button(caption);

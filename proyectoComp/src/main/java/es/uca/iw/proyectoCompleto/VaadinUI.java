@@ -41,14 +41,9 @@ public class VaadinUI extends UI {
 
 	
 	private void showMainScreen() {
-		int rol = -1;
-		if(SecurityUtils.hasRole("ADMIN"))
-			rol = 0;
-		mainScreen.setAuth(rol);
-		
-		if(SecurityUtils.hasRole("USER") || SecurityUtils.hasRole("ADMIN"))
-			mainScreen.navigationBar.addComponent(mainScreen.logoutButton);
-					
+	
+		mainScreen.setAuth();	
+			
 		setContent(mainScreen);
 	}
 	

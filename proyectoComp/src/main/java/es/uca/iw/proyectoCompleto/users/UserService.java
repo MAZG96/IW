@@ -41,7 +41,6 @@ public class UserService implements UserDetailsService {
 		return repo.save(user);
 	}
 	
-	//@Query("Select u from User u where u.email = :email") @Param("email")
 	public User findByEmail(String email) {
 		return repo.findByEmail(email);
 	}

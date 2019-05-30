@@ -1,9 +1,7 @@
 package es.uca.iw.proyectoCompleto.users;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,10 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import es.uca.iw.proyectoCompleto.security.VaadinSessionSecurityContextHolderStrategy;
 
 @Entity
 public class User implements UserDetails {
@@ -51,7 +47,6 @@ public class User implements UserDetails {
 
 	private LocalDate birth;
 
-	private boolean isAdmin = false;
 	
 	@Column(length = 34)
 	private String tarjeta;
@@ -68,7 +63,7 @@ public class User implements UserDetails {
 	}
 
 	public User(String firstName, String lastName, String username, String password, String email, String addr,
-			String tlf, String bio, String profilePic, LocalDate birth, boolean isAdmin, String tarjeta,
+			String tlf, String bio, String profilePic, LocalDate birth,String tarjeta,
 			String cuentaBancaria,boolean is_Gestor,boolean is_Gerente) {
 		super();
 		this.firstName = firstName;
@@ -81,7 +76,6 @@ public class User implements UserDetails {
 		this.bio = bio;
 		this.profilePic = profilePic;
 		this.birth = birth;
-		this.isAdmin = isAdmin;
 		this.tarjeta = tarjeta;
 		this.cuentaBancaria = cuentaBancaria;
 		this.is_Gestor=is_Gestor;
@@ -190,16 +184,11 @@ public class User implements UserDetails {
 		this.tarjeta = tarjeta;
 	}
 
-	/**
-	 * @return the cuentaBancaria
-	 */
+
 	public String getCuentaBancaria() {
 		return cuentaBancaria;
 	}
 
-	/**
-	 * @param cuentaBancaria the cuentaBancaria to set
-	 */
 	public void setCuentaBancaria(String cuentaBancaria) {
 		this.cuentaBancaria = cuentaBancaria;
 	}
@@ -207,20 +196,6 @@ public class User implements UserDetails {
 	@Override
 	public String toString() {
 		return getUsername();
-	}
-
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
-		// list.add(new SimpleGrantedAuthority("ROLE_MANAGER"));
-		VaadinSessionSecurityContextHolderStrategy sesion = new VaadinSessionSecurityContextHolderStrategy();
-		if (isAdmin)
-			list.add(new SimpleGrantedAuthority("ADMIN"));
-		else {
-			list.add(new SimpleGrantedAuthority("USER"));
-		}
-			
-		return list;
 	}
 
 	@Override
@@ -250,20 +225,6 @@ public class User implements UserDetails {
 		this.birth = birth;
 	}
 
-	/**
-	 * @return the isAdmin
-	 */
-	public boolean isAdmin() {
-		return isAdmin;
-	}
-
-	/**
-	 * @param isAdmin
-	 *            the isAdmin to set
-	 */
-	public void setAdmin(boolean isAdmin) {
-		this.isAdmin = isAdmin;
-	}
 
 	@Override
 	public boolean isAccountNonExpired() {
@@ -287,6 +248,12 @@ public class User implements UserDetails {
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
 		return true;
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

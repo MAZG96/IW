@@ -46,7 +46,7 @@ private final VehiculoService service;
 private final UserService userservice;
 	
 
-	private Vehiculo apt;
+	private Vehiculo veh;
 
 	/* Fields to edit properties in Vehiculo entity */
 	
@@ -128,12 +128,9 @@ private final UserService userservice;
 		precio_dia.setMaxLength(8);
 		oficina.setMaxLength(32);
 		
-		//valoracion.setMaxLength(8);
 		
 		addComponents(title, matricula, marca, estado, climatizador, gps, numero_de_plazas,tipo_transmision,carroceria,precio_dia,fechaIni,fechaFin,oficina,upload, imagen, acciones);
 
-		// bind using naming convention
-		//binder.bindInstanceFields(this);
 		
 		System.out.println(galeria.getValue());
 		binder.forField(galeria)
@@ -207,21 +204,12 @@ private final UserService userservice;
 		binder.forField(carroceria)
 		.asRequired("No puede estar vacío")
 		.withValidator(new StringLengthValidator("Este campo debe ser una cadena entre 4 y 128 caracteres", 4, 128))
-		.bind(Vehiculo::getCarroceria, Vehiculo::setCarroceria);
-		
-		
-		
-		
-		
-
-		// Configure and style components
+		.bind(Vehiculo::getCarroceria, Vehiculo::setCarroceria);		
+	
 		setSpacing(true);
 		acciones.setStyleName(ValoTheme.LAYOUT_COMPONENT_GROUP);
 		guardar.setStyleName(ValoTheme.BUTTON_PRIMARY);
-		guardar.setClickShortcut(ShortcutAction.KeyCode.ENTER);
-
-		// wire action buttons to guardar, borrar and reset
-		
+		guardar.setClickShortcut(ShortcutAction.KeyCode.ENTER);		
 		
 		guardar.addClickListener(e -> {
 			
@@ -231,32 +219,30 @@ private final UserService userservice;
 			if(binder.isValid()) {
 				
 				
-				binder.setBean(apt);
-				apt.setMatricula(matricula.getValue());
-				apt.setMarca(marca.getValue());
-				apt.setEstado(estado.getValue());
-				apt.setClimatizador(Integer.valueOf(climatizador.getValue()));
-				apt.setGps(Integer.valueOf(gps.getValue()));
-				apt.setNumero_de_plazas(Integer.valueOf(numero_de_plazas.getValue()));
-				apt.setTipo_transmision(tipo_transmision.getValue());
-				apt.setDisponibilidad_ini(fechaIni.getValue());
-				apt.setDisponibilidad_fin(fechaFin.getValue());
-				apt.setCarroceria(carroceria.getValue());
-				apt.setPrecio_dia(Integer.valueOf(precio_dia.getValue()));
-				apt.setOficina(oficina.getValue());
-				System.out.println(galeria.getValue());
-				apt.setGaleria(galeria.getValue());
-				apt.setUsuario(u);
-				caracteristicas.save(apt);
+				binder.setBean(veh);
+				veh.setMatricula(matricula.getValue());
+				veh.setMarca(marca.getValue());
+				veh.setEstado(estado.getValue());
+				veh.setClimatizador(Integer.valueOf(climatizador.getValue()));
+				veh.setGps(Integer.valueOf(gps.getValue()));
+				veh.setNumero_de_plazas(Integer.valueOf(numero_de_plazas.getValue()));
+				veh.setTipo_transmision(tipo_transmision.getValue());
+				veh.setDisponibilidad_ini(fechaIni.getValue());
+				veh.setDisponibilidad_fin(fechaFin.getValue());
+				veh.setCarroceria(carroceria.getValue());
+				veh.setPrecio_dia(Integer.valueOf(precio_dia.getValue()));
+				veh.setOficina(oficina.getValue());
+				veh.setGaleria(galeria.getValue());
+				veh.setUsuario(u);
+				caracteristicas.save(veh);
 				
 				getUI().getPage().reload();
 				
 			}else
 				mostrarNotificacion(new Notification("Algunos campos del formulario deben corregirse"));
 		});
-		//guardar.addClickListener(e -> caracteristicas.save(apt));
-		borrar.addClickListener(e -> caracteristicas.delete(apt));
-		cancelar.addClickListener(e -> editarVehiculo(apt));
+		borrar.addClickListener(e -> caracteristicas.delete(veh));
+		cancelar.addClickListener(e -> editarVehiculo(veh));
 		setVisible(false);
 	}
 	
@@ -278,28 +264,21 @@ private final UserService userservice;
 		final boolean persisted = c.getId() != null;
 		
 		if (persisted)
-			apt = service.findOne(c.getId());
+			veh = service.findOne(c.getId());
 		else 
-			apt = c;
+			veh = c;
 		
 		cancelar.setVisible(persisted);
 
-		// Bind UCAROOM properties to similarly named fields
-		// Could also use annotation or "manual binding" or programmatically
-		// moving values from fields to entities before saving
-		binder.setBean(apt);
+		binder.setBean(veh);
 
 		setVisible(true);
 
-		// A hack to ensure the whole form is visible
 		guardar.focus();
-		// Select all text in matricula field automatically
 		matricula.selectAll();
 	}
 
 	public void setChangeHandler(ChangeHandler h) {
-		// ChangeHandler is notified when either guardar or borrar is clicked
-		//guardar.addClickListener(e -> h.onChange());
 		guardar.addClickListener(e -> {
 			if(binder.isValid())
 				h.onChange();

@@ -33,24 +33,18 @@ public class AnuncioView extends VerticalLayout implements View {
 		
 	@PostConstruct
 	void init() {
-		//addComponent(new Label("This is the welcome page"));
 		
 		HorizontalLayout headerAnuncios = new HorizontalLayout();
 		Label titulo = new Label("Vehiculos");
 		titulo.setStyleName("h2");
-		headerAnuncios.addComponent(titulo);
-		
+		headerAnuncios.addComponent(titulo);		
 		addComponent(headerAnuncios);
-		
-		anunciosAll();
-		
+		anunciosAll();		
 	}
 	
 	private void anunciosAll() {
 		List<Vehiculo> vehiculos = vehiSer.findAll();
-		System.out.println(vehiculos.get(0).getMatricula());
 		for(Vehiculo v : vehiculos) {
-			System.out.println(vehiculos.size());
 			HorizontalLayout vehiculo = new HorizontalLayout();
 			
 			Image imagen = new Image();
@@ -60,22 +54,22 @@ public class AnuncioView extends VerticalLayout implements View {
 			imagen.setWidth(100, Unit.PIXELS);
 			imagen.setHeight(100, Unit.PIXELS);
 					
-			Label ap1 = new Label ("Matricula: "+v.getMatricula() + ",");
-			Label ap2 = new Label ("Marca: "+v.getMarca());
-			Label ap3 = new Label ("Estado: "+v.getEstado());
-			Label ap4 = new Label("Precio/dia: " + v.getPrecio_dia() + "€");
-			Label ap5 = new Label ("GPS: "+ v.getGps());
-			Label ap6 = new Label ("Climatizador: "+ v.getClimatizador());
+			Label lb1 = new Label ("Matricula: "+v.getMatricula() + ",");
+			Label lb2 = new Label ("Marca: "+v.getMarca());
+			Label lb3 = new Label ("Estado: "+v.getEstado());
+			Label lb4 = new Label("Precio/dia: " + v.getPrecio_dia() + "€");
+			Label lb5 = new Label ("GPS: "+ v.getGps());
+			Label lb6 = new Label ("Climatizador: "+ v.getClimatizador());
 			
 			
 			
 			vehiculo.addComponent(imagen);
-			vehiculo.addComponent(ap1);
-			vehiculo.addComponent(ap2);
-			vehiculo.addComponent(ap3);
-			vehiculo.addComponent(ap4);
-			vehiculo.addComponent(ap5);
-			vehiculo.addComponent(ap6);
+			vehiculo.addComponent(lb1);
+			vehiculo.addComponent(lb2);
+			vehiculo.addComponent(lb3);
+			vehiculo.addComponent(lb4);
+			vehiculo.addComponent(lb5);
+			vehiculo.addComponent(lb6);
 			
 			addComponent(vehiculo);
 			

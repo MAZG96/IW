@@ -50,10 +50,6 @@ public class ProyectoCompletoApplication {
 				ucaService.save(new Cuentageneral("ES7620770024003102575766"));
 				
 
-				User root = new User("root", "root");
-				root.setPassword("root");
-				service.save(root);
-
 				// fetch all users
 				log.info("Users found with findAll():");
 				log.info("-------------------------------");
@@ -114,7 +110,6 @@ public class ProyectoCompletoApplication {
 		}
 
 		static {
-			// Use a custom SecurityContextHolderStrategy
 			SecurityContextHolder.setStrategyName(VaadinSessionSecurityContextHolderStrategy.class.getName());
 		}
 	}

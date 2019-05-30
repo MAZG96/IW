@@ -132,8 +132,6 @@ public class VehiculoView extends VerticalLayout implements View {
 	}
 	
 	void listarVehiculos(String texto) {
-		VaadinSessionSecurityContextHolderStrategy sesion = new VaadinSessionSecurityContextHolderStrategy();
-		User u = service.loadUserByUsername(sesion.getContext().getAuthentication().getName());
 		if (StringUtils.isEmpty(texto)) {
 			grid.setItems(caracteristicas.findAll());
 		}else {

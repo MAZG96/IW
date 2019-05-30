@@ -28,7 +28,7 @@ import es.uca.iw.proyectoCompleto.vehiculos.VehiculoService;
 public class AnuncioReserva extends VerticalLayout implements View{
 	private static final long serialVersionUID = 350041936879535659L;
 	public static final String VIEW_NAME = "AnuncioReserva";
-	private final VehiculoService aptService;
+	private final VehiculoService vehService;
 	ViewChangeListener.ViewChangeEvent event;
 	Vehiculo v;
 	Image imagen = new Image();
@@ -41,21 +41,19 @@ public class AnuncioReserva extends VerticalLayout implements View{
 	Label propietario = new Label();
 	
 	@Autowired
-	public AnuncioReserva(VehiculoService aptService) {
-		this.aptService = aptService;
+	public AnuncioReserva(VehiculoService vehService) {
+		this.vehService = vehService;
 	}
 	
 	@PostConstruct
 	void init() {
 		Button reservar = new Button("Reservar");
-		// Configure and style components
 		setSpacing(true);
 		reservar.setStyleName(ValoTheme.LAYOUT_COMPONENT_GROUP);
 		reservar.setStyleName(ValoTheme.BUTTON_PRIMARY);
 				
 		addComponents(imagen, matricula, marca, estado, climatizador, gps, precioL, propietario, reservar);
 		
-		// Connect selected Reserva to editor or hide if none is selected
 		reservar.addClickListener(e -> {
 			if(SecurityUtils.isLoggedIn()) {
 				getUI().getNavigator().navigateTo(AnuncioReservaView.VIEW_NAME + "/" + v.getId());
@@ -76,8 +74,8 @@ public class AnuncioReserva extends VerticalLayout implements View{
 		if(event.getParameters() != null) {
 			String[] msgs = event.getParameters().split("/");
 			Long id = Long.parseLong(msgs[0]);
-			v = aptService.findOne(id);
-			String foto = aptService.findOne(id).getGaleria();
+			v = vehService.findOne(id);
+			String foto = vehService.findOne(id).getGaleria();
 			
             if(foto != null) {
     			imagen.setVisible(true);

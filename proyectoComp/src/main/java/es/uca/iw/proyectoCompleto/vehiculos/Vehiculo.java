@@ -10,25 +10,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
+
 
 import es.uca.iw.proyectoCompleto.users.User;
 
 
 @Entity
 @Table(name = "vehiculo")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Vehiculo.findAll", query = "SELECT a FROM Vehiculo a")
-    , @NamedQuery(name = "Vehiculo.findById", query = "SELECT a FROM Vehiculo a WHERE a.id = :id")
-    , @NamedQuery(name = "Vehiculo.findByMatricula", query = "SELECT a FROM Vehiculo a WHERE a.matricula = :matricula")
-    , @NamedQuery(name = "Vehiculo.findByMarca", query = "SELECT a FROM Vehiculo a WHERE a.marca = :marca")
-    , @NamedQuery(name = "Vehiculo.findByEstado", query = "SELECT a FROM Vehiculo a WHERE a.estado = :estado")
-    , @NamedQuery(name = "Vehiculo.findByClimatizador", query = "SELECT a FROM Vehiculo a WHERE a.climatizador = :climatizador")
-    , @NamedQuery(name = "Vehiculo.findByGps", query = "SELECT a FROM Vehiculo a WHERE a.gps = :gps")})
 public class Vehiculo implements Serializable {
 
     public int getPrecio_dia() {
