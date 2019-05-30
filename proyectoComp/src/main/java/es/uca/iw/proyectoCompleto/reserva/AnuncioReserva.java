@@ -1,8 +1,6 @@
 package es.uca.iw.proyectoCompleto.reserva;
 
 import java.io.File;
-import java.text.DecimalFormat;
-import java.time.LocalDate;
 
 import javax.annotation.PostConstruct;
 

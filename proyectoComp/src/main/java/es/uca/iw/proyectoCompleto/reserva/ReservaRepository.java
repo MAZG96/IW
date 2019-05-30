@@ -1,13 +1,13 @@
  package es.uca.iw.proyectoCompleto.reserva;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import es.uca.iw.proyectoCompleto.users.User;
 import es.uca.iw.proyectoCompleto.vehiculos.Vehiculo;
-
-import java.util.List;
 
 public interface ReservaRepository extends CrudRepository<Reserva, Long> {
 	

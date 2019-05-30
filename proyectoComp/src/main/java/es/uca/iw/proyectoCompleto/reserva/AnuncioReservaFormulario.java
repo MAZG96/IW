@@ -1,9 +1,7 @@
 package es.uca.iw.proyectoCompleto.reserva;
 
-import java.awt.Checkbox;
 import java.io.File;
 import java.time.LocalDate;
-import java.util.Objects;
 
 import javax.annotation.PostConstruct;
 
@@ -19,24 +17,19 @@ import com.vaadin.server.FileResource;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.Button;
-import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.DateField;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Image;
 import com.vaadin.ui.Label;
-import com.vaadin.ui.RadioButtonGroup;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.themes.ValoTheme;
 
-import es.uca.iw.proyectoCompleto.security.SecurityUtils;
 import es.uca.iw.proyectoCompleto.security.VaadinSessionSecurityContextHolderStrategy;
 import es.uca.iw.proyectoCompleto.users.User;
 import es.uca.iw.proyectoCompleto.users.UserService;
 import es.uca.iw.proyectoCompleto.vehiculos.Vehiculo;
 import es.uca.iw.proyectoCompleto.vehiculos.VehiculoService;
-import javafx.scene.control.RadioButton;
 
 @SuppressWarnings("deprecation")
 @SpringView(name = AnuncioReservaFormulario.VIEW_NAME)

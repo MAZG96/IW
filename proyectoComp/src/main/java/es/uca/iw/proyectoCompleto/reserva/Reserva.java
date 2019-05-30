@@ -1,9 +1,7 @@
 package es.uca.iw.proyectoCompleto.reserva;
 
-import java.text.DecimalFormat;
 import java.time.LocalDate;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

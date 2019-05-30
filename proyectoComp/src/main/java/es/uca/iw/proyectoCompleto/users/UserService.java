@@ -6,16 +6,10 @@ package es.uca.iw.proyectoCompleto.users;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import es.uca.iw.proyectoCompleto.security.VaadinSessionSecurityContextHolderStrategy;
-import es.uca.iw.proyectoCompleto.vehiculos.VehiculoRepository;
 
 @Service
 public class UserService implements UserDetailsService {

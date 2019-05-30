@@ -1,40 +1,21 @@
 package es.uca.iw.proyectoCompleto.reserva;
 
 import java.io.File;
-import java.text.DecimalFormat;
-import java.time.LocalDate;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 
-import org.apache.catalina.security.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 
-import com.vaadin.icons.VaadinIcons;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.FileResource;
-import com.vaadin.server.FontAwesome;
-import com.vaadin.server.FontIcon;
-import com.vaadin.server.Sizeable.Unit;
-import com.vaadin.shared.ui.ValueChangeMode;
 import com.vaadin.spring.annotation.SpringView;
-import com.vaadin.ui.Alignment;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.Grid;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Image;
 import com.vaadin.ui.Label;
-import com.vaadin.ui.PopupView;
-import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.themes.ValoTheme;
 
-import es.uca.iw.proyectoCompleto.VaadinUI;
-import es.uca.iw.proyectoCompleto.WelcomeView;
-import es.uca.iw.proyectoCompleto.account.AccountView;
-import es.uca.iw.proyectoCompleto.security.SecurityUtils;
 import es.uca.iw.proyectoCompleto.users.UserService;
 import es.uca.iw.proyectoCompleto.vehiculos.Vehiculo;
 import es.uca.iw.proyectoCompleto.vehiculos.VehiculoService;

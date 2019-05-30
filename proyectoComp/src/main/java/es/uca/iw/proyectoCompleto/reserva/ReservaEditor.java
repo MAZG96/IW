@@ -2,46 +2,31 @@ package es.uca.iw.proyectoCompleto.reserva;
 
 
 import java.time.LocalDate;
-import java.time.chrono.ChronoLocalDateTime;
-import java.util.Collection;
-import java.util.Properties;
-
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
-import org.springframework.mail.javamail.MimeMessageHelper;
 
 import com.vaadin.data.Binder;
 import com.vaadin.event.ShortcutAction;
 import com.vaadin.icons.VaadinIcons;
-import com.vaadin.server.Page;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.Button;
-import com.vaadin.ui.CssLayout;
-import com.vaadin.ui.DateField;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Notification.Type;
-import com.vaadin.ui.PopupView;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
-import es.uca.iw.proyectoCompleto.VaadinUI;
-import es.uca.iw.proyectoCompleto.cuentageneral.Cuentageneral;
 import es.uca.iw.proyectoCompleto.cuentageneral.CuentaGeneralService;
+import es.uca.iw.proyectoCompleto.cuentageneral.Cuentageneral;
 import es.uca.iw.proyectoCompleto.facturas.Factura;
 import es.uca.iw.proyectoCompleto.facturas.FacturaService;
 import es.uca.iw.proyectoCompleto.security.VaadinSessionSecurityContextHolderStrategy;
 import es.uca.iw.proyectoCompleto.users.User;
 import es.uca.iw.proyectoCompleto.users.UserRepository;
 import es.uca.iw.proyectoCompleto.users.UserService;
-import es.uca.iw.proyectoCompleto.vehiculos.Vehiculo;
-import es.uca.iw.proyectoCompleto.vehiculos.VehiculoService;
 
 
 @SuppressWarnings("serial")
