@@ -244,45 +244,6 @@ public class Vehiculo implements Serializable {
         this.galeria = galeria;
     }
 
-	/**
-	 * @param ubicacion the ubicacion to set
-	 */
-	/*public void setUbicacion(String ubicacion) {
-		this.ubicacion = ubicacion;
-	}
-
-	public float getPrecio() {
-		return precio;
-    }
-
-    public void setPrecio(float precio) {
-        this.precio = precio;
-    }
-
-    public int getHuespedes() {
-        return huespedes;
-    }
-
-    public void setHuespedes(int huespedes) {
-        this.huespedes = huespedes;
-    }
-
-    public int getHabitaciones() {
-        return habitaciones;
-    }
-
-    public void setHabitaciones(int habitaciones) {
-        this.habitaciones = habitaciones;
-    }
-
-    public String getGaleria() {
-        return galeria;
-    }
-
-    public void setGaleria(String galeria) {
-        this.galeria = galeria;
-    }
-    */
     public User getUsuario() {
 		return usuario;
 	}
