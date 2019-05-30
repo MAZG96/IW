@@ -41,11 +41,7 @@ public class VaadinUI extends UI {
 		
 		showMainScreen();
 		
-		/*if (SecurityUtils.isLoggedIn()) {
-			
-		} else {
-			showLoginScreen();
-		}*/
+		
 
 	}
 
